@@ -1,5 +1,6 @@
 package com.samyosm.loremarticulus.generator;
 
+import com.samyosm.loremarticulus.generator.utility.Generator;
 import com.samyosm.loremarticulus.model.TwitterPostHints;
 import com.samyosm.loremarticulus.utils.HintsMaker;
 

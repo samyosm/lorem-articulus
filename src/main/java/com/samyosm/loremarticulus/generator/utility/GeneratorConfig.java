@@ -1,4 +1,4 @@
-package com.samyosm.loremarticulus.generator;
+package com.samyosm.loremarticulus.generator.utility;
 
 
 public class GeneratorConfig {

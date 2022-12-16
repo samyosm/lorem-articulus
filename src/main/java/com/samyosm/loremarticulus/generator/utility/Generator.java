@@ -1,11 +1,11 @@
-package com.samyosm.loremarticulus.generator;
+package com.samyosm.loremarticulus.generator.utility;
 
 import com.google.gson.Gson;
 import com.samyosm.loremarticulus.model.gptcompletion.GPTCompletionRequest;
 import com.samyosm.loremarticulus.model.gptcompletion.GPTCompletionResponse;
 import kong.unirest.Unirest;
 
-import static com.samyosm.loremarticulus.generator.GeneratorConfig.*;
+import static com.samyosm.loremarticulus.generator.utility.GeneratorConfig.*;
 
 public interface Generator<T> {
 
