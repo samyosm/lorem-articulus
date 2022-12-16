@@ -4,18 +4,16 @@ import com.google.gson.Gson;
 import com.samyosm.loremarticulus.model.gptcompletion.GPTCompletionRequest;
 import com.samyosm.loremarticulus.model.gptcompletion.GPTCompletionResponse;
 import kong.unirest.Unirest;
-import org.springframework.beans.factory.annotation.Value;
 
 import static com.samyosm.loremarticulus.generator.GeneratorConfig.*;
 
 public interface Generator<T> {
 
-    public String MakeQuery(T obj);
-    public default String Generate(T obj, String token) {
-        System.out.println("Token: " + token);
+    String MakeQuery(T obj);
+    default String Generate(T obj, String token) {
         String query = MakeQuery(obj);
 
-        var requestBodyClass = new GPTCompletionRequest(query, MAX_TOKEN, TEMPERATURE);
+        var requestBodyClass = new GPTCompletionRequest(query);
 
         var gson = new Gson();
         var body = gson.toJson(requestBodyClass);
