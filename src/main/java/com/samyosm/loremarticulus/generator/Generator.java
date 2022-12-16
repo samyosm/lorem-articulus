@@ -6,15 +6,13 @@ import com.samyosm.loremarticulus.model.gptcompletion.GPTCompletionResponse;
 import kong.unirest.Unirest;
 import org.springframework.beans.factory.annotation.Value;
 
+import static com.samyosm.loremarticulus.generator.GeneratorConfig.*;
+
 public interface Generator<T> {
-    @Value("${token.openai}")
-    String OPENAI_BEARER_TOKEN = null;
-    int MAX_TOKEN = 3000;
-    double TEMPERATURE = 0.1;
-    String API_URL = "https://api.openai.com/v1/completions";
 
     public String MakeQuery(T obj);
-    public default String Generate(T obj) {
+    public default String Generate(T obj, String token) {
+        System.out.println("Token: " + token);
         String query = MakeQuery(obj);
 
         var requestBodyClass = new GPTCompletionRequest(query, MAX_TOKEN, TEMPERATURE);
@@ -23,7 +21,7 @@ public interface Generator<T> {
         var body = gson.toJson(requestBodyClass);
 
         var rawResponse = Unirest.post(API_URL)
-                .header("Authorization", "Bearer " + OPENAI_BEARER_TOKEN)
+                .header("Authorization", "Bearer " + token)
                 .header("Content-Type", "application/json")
                 .body(body)
                 .asJson();

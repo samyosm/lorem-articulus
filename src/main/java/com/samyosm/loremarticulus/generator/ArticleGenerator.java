@@ -1,4 +1,4 @@
-package com.samyosm.loremarticulus.controller;
+package com.samyosm.loremarticulus.generator;
 
 import com.samyosm.loremarticulus.generator.Generator;
 import com.samyosm.loremarticulus.model.ArticleHints;

@@ -1,2 +1,7 @@
+.env:
+  directory: "."
+
 tokens:
   openai: ${env.OPENAI_BEARER_TOKEN}
+  hello: "Hello"
+
