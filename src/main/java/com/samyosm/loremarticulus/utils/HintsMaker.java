@@ -14,7 +14,7 @@ public class HintsMaker {
     }
 
     public HintsMaker add(String label, String value) {
-        if (value.isEmpty()) return this;
+        if (value == null) return this;
         hints += label + ": " + value + "\n";
         return this;
     }
