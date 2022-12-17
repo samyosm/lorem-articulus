@@ -9,19 +9,19 @@ import static com.samyosm.loremarticulus.generator.utility.GeneratorConfig.*;
 
 public interface Generator<T> {
 
-    String MakeQuery(T obj);
-    default String Generate(T obj, String token) {
-        String query = MakeQuery(obj);
+    String MakeQuery(T hints);
+    default String Generate(T hints, String token) {
+        String query = MakeQuery(hints);
 
-        var requestBodyClass = new GPTCompletionRequest(query);
+        var body = new GPTCompletionRequest(query);
 
         var gson = new Gson();
-        var body = gson.toJson(requestBodyClass);
+        var bodyJson = gson.toJson(body);
 
         var rawResponse = Unirest.post(API_URL)
                 .header("Authorization", "Bearer " + token)
                 .header("Content-Type", "application/json")
-                .body(body)
+                .body(bodyJson)
                 .asJson();
         var response = gson.fromJson(rawResponse.getBody().toString(), GPTCompletionResponse.class);
         return response.choices.get(0).getText();
