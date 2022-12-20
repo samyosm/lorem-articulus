@@ -1,6 +1,12 @@
 .env:
   directory: "."
 
+spring:
+  data:
+    mongodb:
+      uri: ${env.MONGODB_URI}
+      database: ${env.MONGODB_DB}
+
 tokens:
   openai: ${env.OPENAI_BEARER_TOKEN}
 

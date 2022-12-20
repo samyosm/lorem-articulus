@@ -1,6 +1,6 @@
 package com.samyosm.loremarticulus.model.gptcompletion;
 
-import com.samyosm.loremarticulus.generator.utility.GeneratorConfig;
+import com.samyosm.loremarticulus.generator.utils.GeneratorConfig;
 import lombok.*;
 
 @Getter

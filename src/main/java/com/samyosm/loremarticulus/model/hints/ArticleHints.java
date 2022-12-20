@@ -1,4 +1,4 @@
-package com.samyosm.loremarticulus.model;
+package com.samyosm.loremarticulus.model.hints;
 
 import lombok.Getter;
 import lombok.Setter;
