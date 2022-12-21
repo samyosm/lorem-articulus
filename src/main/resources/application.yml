@@ -7,6 +7,9 @@ spring:
       uri: ${env.MONGODB_URI}
       database: ${env.MONGODB_DB}
 
+generators:
+  links: "https://pastebin.com/raw/6hjV0mE4"
+
 tokens:
   openai: ${env.OPENAI_BEARER_TOKEN}
 

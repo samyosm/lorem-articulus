@@ -8,16 +8,17 @@ import kong.unirest.Unirest;
 import lombok.RequiredArgsConstructor;
 
 import static com.samyosm.loremarticulus.generator.utils.GeneratorConfig.*;
-
-@RequiredArgsConstructor
-public class Generator<T> {
+public class Generator {
 
     private final UserRepo userRepo;
     private final String openai_api_key;
-    private final Query<T> queryMaker;
 
-    public String Generate(T hints, String token) {
-        String query = queryMaker.MakeQuery(hints);
+    public Generator(UserRepo userRepo, String openai_api_key) {
+        this.userRepo = userRepo;
+        this.openai_api_key = openai_api_key;
+    }
+
+    public String Generate(String query, String token) {
 
         if (!userRepo.existsById(token)) {
             System.out.println(token);
