@@ -1,6 +1,6 @@
-package com.samyosm.loremarticulus.repository;
+package com.samyosm.loremarticulus.repositories;
 
-import com.samyosm.loremarticulus.model.user.UserItem;
+import com.samyosm.loremarticulus.models.UserItem;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface UserRepo extends MongoRepository<UserItem, String> {

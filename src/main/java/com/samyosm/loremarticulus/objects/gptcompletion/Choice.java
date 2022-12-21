@@ -1,4 +1,4 @@
-package com.samyosm.loremarticulus.model.gptcompletion;
+package com.samyosm.loremarticulus.objects.gptcompletion;
 
 import lombok.Getter;
 import lombok.Setter;

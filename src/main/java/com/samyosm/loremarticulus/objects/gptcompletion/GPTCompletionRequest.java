@@ -1,7 +1,10 @@
-package com.samyosm.loremarticulus.model.gptcompletion;
+package com.samyosm.loremarticulus.objects.gptcompletion;
 
-import com.samyosm.loremarticulus.generator.utils.GeneratorConfig;
-import lombok.*;
+import com.samyosm.loremarticulus.config.GeneratorConfig;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -9,7 +12,7 @@ import lombok.*;
 @AllArgsConstructor
 public class GPTCompletionRequest {
     final String model = GeneratorConfig.MODEL;
-    private String prompt;
     final int max_tokens = GeneratorConfig.MAX_TOKEN;
     final double temperature = GeneratorConfig.TEMPERATURE;
+    private String prompt;
 }

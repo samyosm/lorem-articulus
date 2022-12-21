@@ -1,8 +1,7 @@
-package com.samyosm.loremarticulus.model.user;
+package com.samyosm.loremarticulus.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -15,6 +14,6 @@ public class UserItem {
 
     @Id
     private final String token;
-    private int usage;
     private final int maxUsage;
+    private int usage;
 }

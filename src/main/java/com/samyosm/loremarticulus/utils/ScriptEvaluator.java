@@ -5,10 +5,10 @@ import org.mozilla.javascript.Function;
 import org.mozilla.javascript.NativeJSON;
 import org.mozilla.javascript.ScriptableObject;
 
-public class ScriptEvaluator {
+public class ScriptEvaluator implements AutoCloseable {
 
-    Context context;
-    ScriptableObject scope;
+    private final Context context;
+    private final ScriptableObject scope;
 
     public ScriptEvaluator() {
         this.context = Context.enter();
@@ -27,6 +27,7 @@ public class ScriptEvaluator {
         return (String) Context.jsToJava(result, String.class);
     }
 
+    @Override
     public void close() {
         context.close();
     }

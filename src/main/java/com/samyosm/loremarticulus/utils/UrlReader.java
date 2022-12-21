@@ -1,7 +1,6 @@
 package com.samyosm.loremarticulus.utils;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 
 public class UrlReader {

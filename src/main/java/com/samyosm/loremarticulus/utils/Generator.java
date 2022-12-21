@@ -1,18 +1,18 @@
-package com.samyosm.loremarticulus.generator.utils;
+package com.samyosm.loremarticulus.utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.samyosm.loremarticulus.repository.UserRepo;
-import com.samyosm.loremarticulus.utils.ScriptEvaluator;
+import com.samyosm.loremarticulus.repositories.UserRepo;
 
 import java.io.IOException;
 
 import static com.samyosm.loremarticulus.utils.UrlReader.ReadUrl;
-public class GeneratorController{
 
-    private final Generator generator;
+public class Generator {
 
-    public GeneratorController(UserRepo userRepo, String apiKey) {
-        generator = new Generator(userRepo, apiKey);
+    private final TextWriter textWriter;
+
+    public Generator(UserRepo userRepo, String apiKey) {
+        textWriter = new TextWriter(userRepo, apiKey);
     }
 
     private String evaluateQuery(String script, String rawJSON) {
@@ -20,14 +20,16 @@ public class GeneratorController{
         var params = evaluator.parseJson(rawJSON);
         var result = evaluator.evaluateString(script, "makeQuery", params);
         evaluator.close();
+
         return result;
     }
+
     public String generate(JsonNode rawHints, String authToken, String url) throws IOException {
         var rawJSON = rawHints.toString();
         var script = ReadUrl(url);
         var query = evaluateQuery(script, rawJSON);
 
-        return generator.Generate(query, authToken.replace("Bearer ", ""));
+        return textWriter.write(query, authToken.replace("Bearer ", ""));
 
     }
 }
