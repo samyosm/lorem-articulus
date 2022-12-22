@@ -10,6 +10,10 @@ spring:
 generators:
   links: "https://pastebin.com/raw/6hjV0mE4"
 
+server:
+  error:
+    include-message: always
+
 tokens:
   openai: ${env.OPENAI_BEARER_TOKEN}
 

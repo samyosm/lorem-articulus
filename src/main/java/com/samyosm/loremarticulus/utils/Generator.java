@@ -9,10 +9,10 @@ import static com.samyosm.loremarticulus.utils.UrlReader.ReadUrl;
 
 public class Generator {
 
-    private final TextWriter textWriter;
+    private final TextFetcher textFetcher;
 
     public Generator(UserRepo userRepo, String apiKey) {
-        textWriter = new TextWriter(userRepo, apiKey);
+        textFetcher = new TextFetcher(userRepo, apiKey);
     }
 
     private String evaluateQuery(String script, String rawJSON) {
@@ -29,7 +29,7 @@ public class Generator {
         var script = ReadUrl(url);
         var query = evaluateQuery(script, rawJSON);
 
-        return textWriter.write(query, authToken.replace("Bearer ", ""));
+        return textFetcher.write(query, authToken.replace("Bearer ", ""));
 
     }
 }

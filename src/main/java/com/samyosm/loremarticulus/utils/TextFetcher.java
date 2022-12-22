@@ -6,28 +6,39 @@ import com.samyosm.loremarticulus.objects.gptcompletion.GPTCompletionRequest;
 import com.samyosm.loremarticulus.objects.gptcompletion.GPTCompletionResponse;
 import com.samyosm.loremarticulus.repositories.UserRepo;
 import kong.unirest.Unirest;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import static com.samyosm.loremarticulus.config.GeneratorConfig.API_URL;
 
-public class TextWriter {
+public class TextFetcher {
 
     private final UserRepo userRepo;
     private final String openaiApiKey;
 
-    public TextWriter(UserRepo userRepo, String openaiApiKey) {
+    public TextFetcher(UserRepo userRepo, String openaiApiKey) {
         this.userRepo = userRepo;
         this.openaiApiKey = openaiApiKey;
     }
 
-    private UserItem getUser(String token) {
-        if (!userRepo.existsById(token)) {
-            throw new IllegalArgumentException("Invalid token");
+    private UserItem getUser(String uidToken) {
+        if (uidToken.length() < 24) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid token");
+        }
+        var uid = uidToken.substring(0, 24);
+        var token = uidToken.substring(24);
+        if (!userRepo.existsById(uid)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid token");
         }
 
-        var user = userRepo.findUserItemByToken(token);
+        var user = userRepo.findUserItemById(uid);
+
+        if(!user.getTokens().contains(token)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid token");
+        }
 
         if (user.getUsage() + 1 >= user.getMaxUsage()) {
-            throw new IllegalArgumentException("Too many requests");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Usage limit reached");
         }
 
         return user;
