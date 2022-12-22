@@ -20,7 +20,8 @@ public class AuthController {
             @RequestBody UserRegistration hints,
             @RequestHeader(HttpHeaders.AUTHORIZATION) String authToken
     ) {
-        if (authToken == null || !authToken.equals(adminToken)) {
+        authToken = authToken.replace("Bearer ", "");
+        if (!authToken.equals(adminToken)) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
         return UIDManager.getRandomUidToken(hints.uid());
