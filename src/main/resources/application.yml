@@ -16,4 +16,5 @@ server:
 
 tokens:
   openai: ${env.OPENAI_BEARER_TOKEN}
+  admin: ${env.ADMIN_TOKEN}
 
