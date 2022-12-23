@@ -32,11 +32,11 @@ public class AuthController {
         if (!authToken.equals(adminToken)) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
-        var uidToken = UIDManager.getRandomUidToken(hints.uid());
+        var uidToken = UIDManager.getRandomUidToken(hints.getUid());
         UserItem user = new UserItem(
-                hints.uid(),
+                hints.getUid(),
                 List.of(uidToken),
-                hints.maxUsage(),
+                hints.getMaxUsage(),
                 0
         );
         userRepository.save(user);
