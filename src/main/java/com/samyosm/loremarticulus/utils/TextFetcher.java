@@ -1,6 +1,7 @@
 package com.samyosm.loremarticulus.utils;
 
 import com.google.gson.Gson;
+import com.samyosm.loremarticulus.config.SecurityConfig;
 import com.samyosm.loremarticulus.models.UserItem;
 import com.samyosm.loremarticulus.objects.gptcompletion.GPTCompletionRequest;
 import com.samyosm.loremarticulus.objects.gptcompletion.GPTCompletionResponse;
@@ -22,16 +23,21 @@ public class TextFetcher {
     }
 
     private UserItem getUser(String uidToken) {
-        if (uidToken.length() < 24) {
+        var temp = uidToken.split("-");
+        if (temp.length != 2) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid token");
         }
-        var uid = uidToken.substring(0, 24);
-        var token = uidToken.substring(24);
+        var uid = temp[0];
+        var token = temp[1];
+
+        System.out.println("uid:" + uid + " token:" + token);
         if (!userRepo.existsById(uid)) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid token");
         }
 
         var user = userRepo.findUserItemById(uid);
+
+        System.out.println(user);
 
         if(!user.getTokens().contains(token)) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid token");
