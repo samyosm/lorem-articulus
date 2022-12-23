@@ -33,7 +33,7 @@ jobs:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
           MONGODB_DB: ${{ secrets.MONGODB_DB }}
           ADMIN_TOKEN: ${{ secrets.ADMIN_TOKEN }}
-        run: echo "${{secrets.SUDO_PASSWORD}}" | sudo -S fuser -k 80/tcp & echo "${{secrets.SUDO_PASSWORD}}" | sudo -S systemctl restart lorem-articulus.service
+        run:  fuser -k 80/tcp & systemctl restart lorem-articulus.service
 
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
       - name: Update dependency graph
