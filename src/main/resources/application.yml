@@ -13,6 +13,7 @@ generators:
 server:
   error:
     include-message: always
+  port: 80
 
 tokens:
   openai: ${env.OPENAI_BEARER_TOKEN}
