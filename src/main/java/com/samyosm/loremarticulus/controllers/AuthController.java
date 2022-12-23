@@ -16,12 +16,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
+    private final String adminToken;
 
-    @Value("${tokens.admin}")
-    private String adminToken;
+    private UserRepository userRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    public AuthController(@Value("${tokens.admin}") String adminToken, UserRepository userRepository) {
+        this.adminToken = adminToken;
+        this.userRepository = userRepository;
+    }
 
     @PostMapping("/getToken")
     public String Generator(
