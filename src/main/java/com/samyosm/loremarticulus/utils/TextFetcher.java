@@ -1,11 +1,10 @@
 package com.samyosm.loremarticulus.utils;
 
 import com.google.gson.Gson;
-import com.samyosm.loremarticulus.config.SecurityConfig;
 import com.samyosm.loremarticulus.models.UserItem;
 import com.samyosm.loremarticulus.objects.gptcompletion.GPTCompletionRequest;
 import com.samyosm.loremarticulus.objects.gptcompletion.GPTCompletionResponse;
-import com.samyosm.loremarticulus.repositories.UserRepo;
+import com.samyosm.loremarticulus.repositories.UserRepository;
 import kong.unirest.Unirest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,11 +13,11 @@ import static com.samyosm.loremarticulus.config.GeneratorConfig.API_URL;
 
 public class TextFetcher {
 
-    private final UserRepo userRepo;
+    private final UserRepository userRepository;
     private final String openaiApiKey;
 
-    public TextFetcher(UserRepo userRepo, String openaiApiKey) {
-        this.userRepo = userRepo;
+    public TextFetcher(UserRepository userRepository, String openaiApiKey) {
+        this.userRepository = userRepository;
         this.openaiApiKey = openaiApiKey;
     }
 
@@ -30,14 +29,11 @@ public class TextFetcher {
         var uid = temp[0];
         var token = temp[1];
 
-        System.out.println("uid:" + uid + " token:" + token);
-        if (!userRepo.existsById(uid)) {
+        if (!userRepository.existsById(uid)) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid token");
         }
 
-        var user = userRepo.findUserItemById(uid);
-
-        System.out.println(user);
+        var user = userRepository.findUserItemById(uid);
 
         if(!user.getTokens().contains(token)) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid token");
@@ -53,7 +49,7 @@ public class TextFetcher {
     // TODO: Make a UserService with this method
     private void increaseUserUsage(UserItem user) {
         user.setUsage(user.getUsage() + 1);
-        userRepo.save(user);
+        userRepository.save(user);
     }
 
     private String fetchGPTRequest(String query) {

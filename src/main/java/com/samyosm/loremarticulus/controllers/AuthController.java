@@ -2,7 +2,7 @@ package com.samyosm.loremarticulus.controllers;
 
 import com.samyosm.loremarticulus.models.UserItem;
 import com.samyosm.loremarticulus.objects.UserRegistration;
-import com.samyosm.loremarticulus.repositories.UserRepo;
+import com.samyosm.loremarticulus.repositories.UserRepository;
 import com.samyosm.loremarticulus.utils.UIDManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +21,7 @@ public class AuthController {
     private String adminToken;
 
     @Autowired
-    private UserRepo userRepo;
+    private UserRepository userRepository;
 
     @PostMapping("/getToken")
     public String Generator(
@@ -39,7 +39,7 @@ public class AuthController {
                 hints.maxUsage(),
                 0
         );
-        userRepo.save(user);
+        userRepository.save(user);
         return uidToken;
     }
 }
