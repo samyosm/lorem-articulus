@@ -2,6 +2,7 @@ package com.samyosm.loremarticulus.utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.samyosm.loremarticulus.repositories.UserRepository;
+import com.samyosm.loremarticulus.services.UserService;
 
 import java.io.IOException;
 
@@ -11,8 +12,8 @@ public class Generator {
 
     private final TextFetcher textFetcher;
 
-    public Generator(UserRepository userRepository, String apiKey) {
-        textFetcher = new TextFetcher(userRepository, apiKey);
+    public Generator(UserService userService, String apiKey) {
+        textFetcher = new TextFetcher(userService, apiKey);
     }
 
     private String evaluateQuery(String script, String rawJSON) {

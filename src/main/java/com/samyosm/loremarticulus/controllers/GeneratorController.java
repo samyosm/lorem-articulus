@@ -1,8 +1,8 @@
 package com.samyosm.loremarticulus.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.samyosm.loremarticulus.services.UserService;
 import com.samyosm.loremarticulus.utils.Generator;
-import com.samyosm.loremarticulus.repositories.UserRepository;
 import com.samyosm.loremarticulus.utils.GeneratorQueryLinks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,8 +18,8 @@ public class GeneratorController extends Generator {
     private String SIMPLE_GENERATORS_LINK;
 
     @Autowired
-    public GeneratorController(UserRepository userRepository, @Value("${tokens.openai}") String apiKey) {
-        super(userRepository, apiKey);
+    public GeneratorController(UserService userService, @Value("${tokens.openai}") String apiKey) {
+        super(userService, apiKey);
     }
 
     @PostMapping("{type}")
