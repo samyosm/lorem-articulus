@@ -28,11 +28,6 @@ jobs:
       - name: Build with Maven
         run: mvn -B package --file pom.xml
       - name: Run Jar file
-        env:
-          OPENAI_BEARER_TOKEN: ${{ secrets.OPENAI_BEARER_TOKEN }}
-          MONGODB_URI: ${{ secrets.MONGODB_URI }}
-          MONGODB_DB: ${{ secrets.MONGODB_DB }}
-          ADMIN_TOKEN: ${{ secrets.ADMIN_TOKEN }}
         run:  fuser -k 80/tcp & systemctl restart lorem-articulus.service
 
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
