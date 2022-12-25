@@ -8,7 +8,7 @@ spring:
       database: ${env.MONGODB_DB}
 
 generators:
-  links: "https://pastebin.com/raw/6hjV0mE4"
+  links: "https://raw.githubusercontent.com/samyosm/lorem-articulus/main/queries"
 
 server:
   error:
