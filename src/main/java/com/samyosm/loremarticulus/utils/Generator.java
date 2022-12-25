@@ -25,9 +25,8 @@ public class Generator {
         return result;
     }
 
-    public String generate(JsonNode rawHints, String authToken, String url) throws IOException {
+    public String generate(JsonNode rawHints, String authToken, String script) throws IOException {
         var rawJSON = rawHints.toString();
-        var script = ReadUrl(url);
         var query = evaluateQuery(script, rawJSON);
 
         return textFetcher.write(query, authToken.replace("Bearer ", ""));

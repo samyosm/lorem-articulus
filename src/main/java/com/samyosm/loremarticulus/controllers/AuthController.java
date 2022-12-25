@@ -18,7 +18,7 @@ import java.util.List;
 public class AuthController {
     private final String adminToken;
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public AuthController(@Value("${tokens.admin}") String adminToken, UserRepository userRepository) {
